@@ -9,6 +9,9 @@ return {
     -- Extend and create a/i textobjects
     require("mini.ai").setup()
 
+    -- Comment lines
+    require("mini.comment").setup()
+
     -- Move any selection in any direction
     require("mini.move").setup()
 
