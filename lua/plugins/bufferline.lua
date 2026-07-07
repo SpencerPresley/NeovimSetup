@@ -59,26 +59,48 @@ return {
   -- mini.bufremove, used above to close buffers without wrecking the layout.
   dependencies = { "nvim-mini/mini.nvim" },
   keys = keys,
-  opts = {
-    options = {
-      mode = "buffers",
-      numbers = "none", -- clean labels like the mockup (<leader>b1..9 still work)
-      indicator = { style = "underline" }, -- underline the active tab, not a side bar
-      diagnostics = "nvim_lsp",
-      diagnostics_update_on_event = true,
-      always_show_bufferline = false, -- hide the strip when only one buffer is open
-      separator_style = "thin",
-      show_buffer_close_icons = false,
-      show_close_icon = false,
-      -- Reserve the sidebar column so the tabline never draws over nvim-tree.
-      offsets = {
-        {
-          filetype = "NvimTree",
-          text = "File Explorer",
-          text_align = "left",
-          separator = true,
+  config = function()
+    -- Pull an accent color from the active colorscheme (catppuccin) so the
+    -- active-tab underline matches the theme instead of being hardcoded.
+    local function hl_fg(name)
+      local hl = vim.api.nvim_get_hl(0, { name = name, link = false })
+      return hl and hl.fg and string.format("#%06x", hl.fg) or nil
+    end
+    local accent = hl_fg("Function") or hl_fg("Directory") or "#89b4fa"
+
+    require("bufferline").setup({
+      options = {
+        mode = "buffers",
+        numbers = "none", -- clean labels (<leader>b1..9 still work)
+        indicator = { style = "underline" }, -- accent line under the active tab
+        diagnostics = "nvim_lsp",
+        diagnostics_update_on_event = true,
+        always_show_bufferline = false, -- hide the strip when only one buffer is open
+        separator_style = "thin",
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        truncate_names = false, -- full names, no `symlink_AGENTS.md…`
+        max_name_length = 40,
+        name_formatter = function(buf) -- a space each side = breathing room
+          return " " .. buf.name .. " "
+        end,
+        -- Reserve the sidebar column so the tabline never draws over nvim-tree.
+        offsets = {
+          {
+            filetype = "NvimTree",
+            text = "File Explorer",
+            text_align = "left",
+            separator = true,
+          },
         },
       },
-    },
-  },
+      highlights = {
+        -- bufferline's default buffer_selected is bold+ITALIC -> kill the italic.
+        -- Only these attrs are overridden; theme fg/bg are preserved.
+        buffer_selected = { italic = false, bold = true, sp = accent },
+        buffer_visible = { italic = false },
+        indicator_selected = { fg = accent, sp = accent },
+      },
+    })
+  end,
 }
