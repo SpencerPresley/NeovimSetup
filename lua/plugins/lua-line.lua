@@ -3,7 +3,6 @@
 return {
   "nvim-lualine/lualine.nvim",
   dependencies = {
-    "nvim-tree/nvim-web-devicons",
     "folke/trouble.nvim",
   },
   config = function()

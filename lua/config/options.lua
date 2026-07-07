@@ -46,6 +46,7 @@ if not vim.g.vscode then
 	-- Visual Settings
 	vim.opt.termguicolors = true -- Enable 24-bit colors
 	vim.opt.signcolumn = "yes" -- Always show sign column
+	vim.opt.fillchars:append({ eob = " " }) -- Hide the ~ end-of-buffer markers
 	vim.opt.colorcolumn = "100" -- Show column at 100 chars
 	vim.opt.showmatch = true -- Highlight matching brackets
 	vim.opt.matchtime = 2 -- How long to show matching bracket

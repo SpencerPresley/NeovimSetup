@@ -5,6 +5,8 @@
 return {
   "nvim-mini/mini.nvim",
   version = "*",
+  lazy = false,
+  priority = 1000, -- load early so the web-devicons mock is registered before any consumer
   config = function()
     -- Extend and create a/i textobjects
     require("mini.ai").setup()
@@ -36,8 +38,14 @@ return {
     -- Notifications
     require("mini.notify").setup()
 
-    -- Icons
+    -- Icons — the single icon provider for the whole config
     require("mini.icons").setup()
+    -- Make every plugin that expects `nvim-web-devicons` transparently use
+    -- mini.icons instead, so nvim-web-devicons can be dropped entirely. This
+    -- MUST run before those plugins load — hence `priority = 1000` above.
+    MiniIcons.mock_nvim_web_devicons()
+    -- Use mini.icons glyphs for LSP "kind" (completion menu / symbols) too.
+    MiniIcons.tweak_lsp_kind()
 
     -- Split and join arguments
     require("mini.splitjoin").setup()

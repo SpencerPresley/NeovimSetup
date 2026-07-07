@@ -14,6 +14,7 @@ return {
       { "<leader>d", group = "Diagnostics" },
       { "<leader>w", group = "Workspace" },
       { "<leader>r", group = "Rename" },
+      { "<leader>b", group = "Buffer" },
     },
   },
   keys = {

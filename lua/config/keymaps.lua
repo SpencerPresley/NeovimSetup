@@ -80,9 +80,8 @@ if vim.g.vscode then
 else
     -- Full Neovim keymaps
 
-    -- Buffer navigation
-    vim.keymap.set("n", "<leader>bn", "<Cmd>bnext<CR>", { desc = "Next buffer" })
-    vim.keymap.set("n", "<leader>bp", "<Cmd>bprevious<CR>", { desc = "Previous buffer" })
+    -- Buffer navigation + management lives in plugins/bufferline.lua
+    -- (it owns <leader>b* and <S-h>/<S-l>). :qa quits everything at once.
 
     -- Window navigation
     vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
