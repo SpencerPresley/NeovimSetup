@@ -62,7 +62,8 @@ return {
   opts = {
     options = {
       mode = "buffers",
-      numbers = "ordinal", -- show each buffer's position -> pairs with <leader>b1..9
+      numbers = "none", -- clean labels like the mockup (<leader>b1..9 still work)
+      indicator = { style = "underline" }, -- underline the active tab, not a side bar
       diagnostics = "nvim_lsp",
       diagnostics_update_on_event = true,
       always_show_bufferline = false, -- hide the strip when only one buffer is open
