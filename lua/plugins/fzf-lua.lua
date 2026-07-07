@@ -7,10 +7,10 @@ return {
     local fzf_lua = require("fzf-lua")
 
     fzf_lua.setup({
-      -- Add default action to open in trouble with <C-t>
       actions = {
         files = {
-          ["ctrl-t"] = require("trouble.sources.fzf").actions.open,
+          true, -- inherit fzf-lua's default file actions (<CR>=open, ctrl-s/v splits, ...)
+          ["ctrl-t"] = require("trouble.sources.fzf").actions.open, -- also: open selection in Trouble
         },
       },
     })
@@ -64,6 +64,27 @@ return {
         require("fzf-lua").lsp_document_symbols()
       end,
       desc = "FZF Document Symbols",
+    },
+    {
+      "<leader>fl",
+      function()
+        require("fzf-lua").blines()
+      end,
+      desc = "FZF Buffer Lines (search THIS file)",
+    },
+    {
+      "<leader>fL",
+      function()
+        require("fzf-lua").lines()
+      end,
+      desc = "FZF Lines (all open buffers)",
+    },
+    {
+      "<leader>fr",
+      function()
+        require("fzf-lua").resume()
+      end,
+      desc = "FZF Resume last search",
     },
   },
 }
