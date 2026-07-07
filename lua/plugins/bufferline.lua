@@ -4,9 +4,11 @@
 -- quits everything at once. You never need N+1 `:q`.
 
 local keys = {
-  -- Navigate (respects the visible tab order, unlike raw :bnext)
-  { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
-  { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+  -- Navigate (respects the visible tab order, unlike raw :bnext).
+  -- [b/]b follows vim's bracket-pair "prev/next item" grammar and clobbers
+  -- nothing (unlike <S-h>/<S-l> which shadow native H/L viewport motions).
+  { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
+  { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
   { "<leader>bp", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
   { "<leader>bn", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
 

@@ -81,7 +81,7 @@ else
     -- Full Neovim keymaps
 
     -- Buffer navigation + management lives in plugins/bufferline.lua
-    -- (it owns <leader>b* and <S-h>/<S-l>). :qa quits everything at once.
+    -- (it owns <leader>b* and [b/]b). :qa quits everything at once.
 
     -- Window navigation
     vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
